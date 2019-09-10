@@ -84,6 +84,34 @@ client.on('message', msg => {
   }
 });
 
+//////Gelen-giden
+client.on('guildMemberAdd', member => {
+
+  const channel = member.guild.channels.find('name', '「🚪」gelen-giden');// 'notech-log' log ismidir. değiştirebilirsiniz. belirttiğiniz isme giriş çıkış gösterecektir.
+  if (!channel) return;
+  const embed = new Discord.RichEmbed()
+  .setColor('0x00cc44')
+  .setAuthor(client.user.username, client.user.avatarURL)
+  .setThumbnail(member.user.avatarURL)
+  .setTitle(`:inbox_tray: ${member.user.username} Sunucuya katıldı.`)
+  .setTimestamp()
+  channel.sendEmbed(embed);
+});
+
+client.on('guildMemberRemove', member => {
+  const channel = member.guild.channels.find('name', '「🚪」gelen-giden');// 'notech-log' log ismidir. değiştirebilirsiniz. belirttiğiniz isme giriş çıkış gösterecektir.
+  if (!channel) return;
+  const embed = new Discord.RichEmbed()
+  .setColor('0xff1a1a')
+  .setAuthor(client.user.username, client.user.avatarURL)
+  .setThumbnail(member.user.avatarURL)
+  .setTitle(`:outbox_tray: ${member.user.username} Sunucudan ayrıldı.`)
+  .setTimestamp()
+  channel.sendEmbed(embed);
+});
+
+//////////////Bitti
+
 
 client.on('message', async message => {
   const ms = require('ms');
